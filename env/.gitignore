@@ -1,5 +1,7 @@
 # Env
 /.env
+/docker-compose.yml
+/docker/vhost.conf
 
 # Composer
 /vendor
