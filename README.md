@@ -71,5 +71,25 @@ OR run in backend
 - More usefull commands
   - Stop containers
       ```
-      docker-machine env [machine name]
+      docker-compose stop
+      ```
+   - Start containers
+      ```
+      docker-compose start
+      ```
+  - Restart containers
+      ```
+      docker-compose restart
+      ```
+  - Remve containers and images
+      ```
+      docker-compose rm
+      ```
+  - Add containers and images
+      ```
+      docker-compose up
+      ```
+      or
+      ```
+      docker-compose up
       ```
