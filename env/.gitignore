@@ -5,7 +5,7 @@
 
 # Composer
 /vendor
-composer.phar
+# composer.phar
 
 # JS
 node_modules
