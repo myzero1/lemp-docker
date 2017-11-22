@@ -39,18 +39,38 @@ cp vhost.conf.dist vhost.conf
 Usage
 -----
 
-You can then access Gii through the following URL:
-
+- Go to env dir
 ```
-http://localhost/path/to/index.php?r=myzero1
-OR
-http://localhost/path/to/index.php?r=myzero1/gii
+cd env
 ```
 
-or if you have enabled pretty URLs, you may use the following URL:
-
+- Build env by docker-comose as following：
 ```
-http://localhost/path/to/index.php/myzero1
-OR
-http://localhost/path/to/index.php/myzero1/gii
+docker-compose build
+```
+
+- Up env by docker-comose as following：
+```
+docker-compose up
+```
+OR run in backend
+```
+docker-compose up -d
+```
+
+- Log into the app container
+```
+docker-compose exec app bash
+```
+
+- Get the docker host IP address
+```
+docker-machine env [machine name]
+```
+
+- More usefull commands
+
+-- Stop containers
+```
+docker-machine env [machine name]
 ```
