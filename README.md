@@ -7,70 +7,69 @@ Installation
 
 Clone from [myzero1/lemp-docker](https://github.com/myzero1/lemp-docker)
 
-```
-git clone https://github.com/myzero1/lemp-docker.git
-```
+  ```
+  git clone https://github.com/myzero1/lemp-docker.git
+  ```
 
 Setting
 -----
 
 - Go to env dir and copy .env.dist to .env
 
-```
-cd env
-cp .env.dist .env
-```
+    ```
+    cd env
+    cp .env.dist .env
+    ```
 
 - Go to env dir and copy docker-compose.yml.dist to docker-compose.yml
 
-```
-cd env
-cp docker-compose.yml.dist docker-compose.yml
-```
+    ```
+    cd env
+    cp docker-compose.yml.dist docker-compose.yml
+    ```
 
 - Go to env/docker/nginx dir and vhost.conf.dist to vhost.conf
 
-```
-cd  env/docker/nginx
-cp vhost.conf.dist vhost.conf
-```
+    ```
+    cd  env/docker/nginx
+    cp vhost.conf.dist vhost.conf
+    ```
 
 
 Usage
 -----
 
 - Go to env dir
-```
-cd env
-```
+    ```
+    cd env
+    ```
 
 - Build env by docker-comose as following：
-```
-docker-compose build
-```
+    ```
+    docker-compose build
+    ```
 
 - Up env by docker-comose as following：
-```
-docker-compose up
-```
+    ```
+    docker-compose up
+    ```
 OR run in backend
-```
-docker-compose up -d
-```
+    ```
+    docker-compose up -d
+    ```
 
 - Log into the app container
-```
-docker-compose exec app bash
-```
+    ```
+    docker-compose exec app bash
+    ```
 
 - Get the docker host IP address
-```
-docker-machine env [machine name]
-```
+    ```
+    docker-machine env [machine name]
+    ```
 
 - More usefull commands
-
--- Stop containers
-```
-docker-machine env [machine name]
-```
+  - Stop containers
+      ```
+      docker-machine env [machine name]
+      ```
