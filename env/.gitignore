@@ -2,6 +2,8 @@
 /.env
 /docker-compose.yml
 /docker/nginx/vhost.conf
+/docker/mysql/my.cnf
+/docker/php/php.ini
 
 # Composer
 /vendor
