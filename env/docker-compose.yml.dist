@@ -9,6 +9,7 @@ app:
   working_dir: /app
   volumes_from:
     - data
+    - ./docker/php/php.ini:/usr/local/etc/php/php.ini
   expose:
     - 9000
   links:
@@ -30,10 +31,11 @@ db:
   image: mysql:5.5
   volumes:
     - /var/lib/mysql
+    - ./docker/mysql/my.cnf:/etc/mysql/conf.d
   ports:
     - "3306:3306"
   environment:
     MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: yii2-starter-kit
-    MYSQL_USER: ysk_dbu
-    MYSQL_PASSWORD: ysk_pass
+    MYSQL_DATABASE: lemp
+    MYSQL_USER: lemp_u
+    MYSQL_PASSWORD: lemp_p
