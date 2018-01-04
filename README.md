@@ -61,6 +61,8 @@ OR run in backend
 - Log into the app container
     ```
     docker-compose exec app bash
+    
+    docker exec -it env_app_1 bash   on docker for windows
     ```
 
 - Get the docker host IP address
