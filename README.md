@@ -28,11 +28,25 @@ Setting
     cp docker-compose.yml.dist docker-compose.yml
     ```
 
-- Go to env/docker/nginx dir and vhost.conf.dist to vhost.conf
+- Go to env/docker/nginx dir and cp vhost.conf.dist to vhost.conf
 
     ```
     cd  env/docker/nginx
-    cp vhost.conf.dist vhost.conf
+    cp  vhost.conf.dist vhost.conf
+    ```
+    
+- Go to env/docker/mysql dir and cp my.cnf.dist to my.cnf
+
+    ```
+    cd  env/docker/mysql
+    cp  my.cnf.dist my.cnf
+    ```
+
+- Go to env/docker/php dir and cp php.ini.dist to php.ini
+
+    ```
+    cd  env/docker/php
+    cp  php.ini.dist php.ini
     ```
 
 
