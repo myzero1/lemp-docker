@@ -19,7 +19,7 @@ services:
     image: mysql:5.5
     volumes:
       - /var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     ports:
       - "3306:3306"
     environment:
@@ -29,6 +29,11 @@ services:
       MYSQL_PASSWORD: lemp_p
     networks:
       - back-tier
+  code:
+    image: busybox:latest
+    volumes:
+      - ../app:/app
+    entrypoint: tail -f /dev/null
   php:
     image: daocloud.io/woogle/yii2-docker-env-php
     working_dir: /app
@@ -42,15 +47,11 @@ services:
       - db
     depends_on:
       - db
+      - code
     environment:
       XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
     networks:
       - back-tier
-  code:
-    image: busybox:latest
-    volumes:
-      - ../app:/app
-    entrypoint: tail -f /dev/null
 networks:
   front-tier:
     driver: bridge
