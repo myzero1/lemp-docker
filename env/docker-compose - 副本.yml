@@ -1,4 +1,6 @@
 version: '2'
+
+
 services:
   nginx:
     image: nginx:1.12-alpine
@@ -15,11 +17,12 @@ services:
     networks:
       - front-tier
       - back-tier
+
   db:
     image: mysql:5.5
-    volumes:
-      - /var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d
+      volumes:
+        - /var/lib/mysql
+       - ./docker/mysql/my.cnf:/etc/mysql/conf.d
     ports:
       - "3306:3306"
     environment:
@@ -27,13 +30,14 @@ services:
       MYSQL_DATABASE: lemp
       MYSQL_USER: lemp_u
       MYSQL_PASSWORD: lemp_p
-    networks:
+   networks:
       - back-tier
+
   php:
     image: daocloud.io/woogle/yii2-docker-env-php
     working_dir: /app
-    volumes:
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      volumes:
+        - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     volumes_from:
       - code
     expose:
@@ -44,13 +48,16 @@ services:
       - db
     environment:
       XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
-    networks:
+   networks:
       - back-tier
+
   code:
     image: busybox:latest
     volumes:
       - ../app:/app
     entrypoint: tail -f /dev/null
+
+
 networks:
   front-tier:
     driver: bridge
