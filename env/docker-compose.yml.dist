@@ -5,7 +5,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./docker/nginx/vhost.conf:/etc/nginx/conf.d/vhost.conf
+      - ./conf/nginx/vhost.conf:/etc/nginx/conf.d/vhost.conf
     volumes_from:
       - code
     links:
@@ -14,13 +14,12 @@ services:
       - code
       - app
     networks:
-      - back-tier
-      - front-tier
+      - project_net
   app:
     image: daocloud.io/woogle/yii2-docker-env-php
     working_dir: /app
     volumes:
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini
     volumes_from:
       - code
     expose:
@@ -33,19 +32,19 @@ services:
     environment:
       XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
     networks:
-      - back-tier
+      - project_net
   code:
     image: busybox:latest
     volumes:
       - ../app:/app
     entrypoint: tail -f /dev/null
     networks:
-      - back-tier
+      - project_net
   db:
     image: mysql:5.7
     volumes:
       - /var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./conf/mysql/my.cnf:/etc/mysql/my.cnf
     ports:
       - "3306:3306"
     environment:
@@ -54,9 +53,10 @@ services:
       MYSQL_USER: ysk_dbu
       MYSQL_PASSWORD: ysk_pass
     networks:
-      - back-tier
+      - project_net
 networks:
-  front-tier:
-    driver: bridge
-  back-tier:
-    driver: bridge
+  project_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${SUBNET}
