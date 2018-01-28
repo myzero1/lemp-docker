@@ -1,0 +1,30 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    container_name: db_name
+    networks:
+      - app_net
+  web:
+    image: mysql
+    expose:
+      - "80"
+      - "443"
+      - "8080"
+    networks:
+      app_net:
+        ipv4_address: web_ip
+    container_name: web_name
+    depends_on:
+      - db
+    links:
+      - db
+    
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${SUBNET}
+          gateway: gateway
