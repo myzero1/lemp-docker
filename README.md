@@ -19,6 +19,13 @@ Setting
     ```
     cd env
     cp .env.dist .env
+
+    vi .env
+
+    # -----------project conf-------------------
+    # You should set COMPOSE_PROJECT_NAME as 1-255,if you wang to you use this project.
+    COMPOSE_PROJECT_NAME=1
+
     ```
 
 - Go to env dir and copy docker-compose.yml.dist to docker-compose.yml
