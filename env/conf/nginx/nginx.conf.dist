@@ -1,169 +1,119 @@
-## WELCOME,it is defult ##
-server {
-    listen 80 default;
 
-    root /app/welcome;
-    index index.php index.html;
+#user  nobody;
+worker_processes  1;
 
-    server_name welcome.dev;
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
 
-    charset utf-8;
+#pid        logs/nginx.pid;
 
-    # location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
-    #    access_log off;
-    #    expires max;
-    # }
 
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
-
-    client_max_body_size 32m;
-
-    # There is a VirtualBox bug related to sendfile that can lead to
-    # corrupted files, if not turned-off
-    # sendfile off;
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass php-fpm;
-        fastcgi_index index.php;
-        include fastcgi_params;
-
-        ## Cache
-        # fastcgi_pass_header Cookie; # fill cookie valiables, $cookie_phpsessid for exmaple
-        # fastcgi_ignore_headers Cache-Control Expires Set-Cookie; # Use it with caution because it is cause SEO problems
-        # fastcgi_cache_key "$request_method|$server_addr:$server_port$request_uri|$cookie_phpsessid"; # generating unique key
-        # fastcgi_cache fastcgi_cache; # use fastcgi_cache keys_zone
-        # fastcgi_cache_path /tmp/nginx/ levels=1:2 keys_zone=fastcgi_cache:16m max_size=256m inactive=1d;
-        # fastcgi_temp_path  /tmp/nginx/temp 1 2; # temp files folder
-        # fastcgi_cache_use_stale updating error timeout invalid_header http_500; # show cached page if error (even if it is outdated)
-        # fastcgi_cache_valid 200 404 10s; # cache lifetime for 200 404;
-        # or fastcgi_cache_valid any 10s; # use it if you want to cache any responses
-    }
+events {
+    worker_connections  1024;
 }
 
-## ---------app vhost,examples----------- ##
 
-## FRONTEND ##
-server {
-    listen 80;
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
 
-    root /app/frontend/web;
-    index index.php index.html;
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
 
-    server_name yii2-starter-kit.dev;
+    #access_log  logs/access.log  main;
 
-    charset utf-8;
+    sendfile        on;
+    #tcp_nopush     on;
 
-    # location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
-    #    access_log off;
-    #    expires max;
-    # }
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
 
-    location / {
-        try_files $uri $uri/ /index.php?$args;
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
     }
 
-    client_max_body_size 32m;
 
-    # There is a VirtualBox bug related to sendfile that can lead to
-    # corrupted files, if not turned-off
-    # sendfile off;
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
 
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass php-fpm;
-        fastcgi_index index.php;
-        include fastcgi_params;
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
 
-        ## Cache
-        # fastcgi_pass_header Cookie; # fill cookie valiables, $cookie_phpsessid for exmaple
-        # fastcgi_ignore_headers Cache-Control Expires Set-Cookie; # Use it with caution because it is cause SEO problems
-        # fastcgi_cache_key "$request_method|$server_addr:$server_port$request_uri|$cookie_phpsessid"; # generating unique key
-        # fastcgi_cache fastcgi_cache; # use fastcgi_cache keys_zone
-        # fastcgi_cache_path /tmp/nginx/ levels=1:2 keys_zone=fastcgi_cache:16m max_size=256m inactive=1d;
-        # fastcgi_temp_path  /tmp/nginx/temp 1 2; # temp files folder
-        # fastcgi_cache_use_stale updating error timeout invalid_header http_500; # show cached page if error (even if it is outdated)
-        # fastcgi_cache_valid 200 404 10s; # cache lifetime for 200 404;
-        # or fastcgi_cache_valid any 10s; # use it if you want to cache any responses
-    }
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+    include ./conf.d/*.conf;
+
 }
-
-## BACKEND ##
-server {
-    listen 80;
-
-    root /app/backend/web;
-    index index.php index.html;
-
-    server_name backend.yii2-starter-kit.dev;
-
-    charset utf-8;
-
-    client_max_body_size 16m;
-
-    # There is a VirtualBox bug related to sendfile that can lead to
-    # corrupted files, if not turned-off on Vagrant based setup
-    # sendfile off;
-
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
-
-    # location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
-    #     access_log off;
-    #    expires max;
-    # }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass php-fpm;
-        fastcgi_index index.php;
-        include fastcgi_params;
-    }
-
-}
-
-## STORAGE ##
-server {
-    listen 80;
-    server_name storage.yii2-starter-kit.dev;
-
-    root /app/storage/web;
-    index index.html;
-    # expires max;
-
-    # There is a VirtualBox bug related to sendfile that can lead to
-    # corrupted files, if not turned-off
-    # sendfile off;
-
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass php-fpm;
-        fastcgi_index index.php;
-        include fastcgi_params;
-    }
-}
-
-## PHP-FPM Servers ##
-upstream php-fpm {
-    server app:9000;
-}
-
-## MISC ##
-
-### WWW Redirect ###
-#server {
-#    listen       80;
-#    server_name  www.yii2-starter-kit.dev;
-#    return       301 http://yii2-starter-kit.dev$request_uri;
-#}
