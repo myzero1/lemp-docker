@@ -90,15 +90,20 @@ Usage
       ```
       docker-compose restart
       ```
-  - Remve containers and images
+      
+  - Remove containers
       ```
-      docker-compose rm
+      docker-compose restart
       ```
+      
   - Add containers and images
       ```
       docker-compose up
+      
+      docker-compose up -d
       ```
-      or
+      
+  - Remove containers and images
       ```
-      docker-compose up
+      docker-compose rm
       ```
