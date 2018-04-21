@@ -60,10 +60,9 @@ Usage
 - Up env by docker-comose as following：
     ```
     docker-compose up
-    ```
-OR run in backend
-    ```
+    
     docker-compose up -d
+    
     ```
 
 - Log into the app container
