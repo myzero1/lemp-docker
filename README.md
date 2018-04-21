@@ -1,6 +1,6 @@
 lemp-docker
 ========================
-This is a lenmp evn builded by docker-compose.Include nginx:1.12-alpine,php7.0,mysql:5.7.
+This is a lemp evn builded by docker-compose.Include nginx:1.12-alpine,php7.0,mysql:5.7.
 
 Installation
 ------------
@@ -24,7 +24,7 @@ Setting
 
     # -----------project conf-------------------
     # You should set COMPOSE_PROJECT_NAME as 1-255,if you wang to you use this project.
-    COMPOSE_PROJECT_NAME=1
+    COMPOSE_PROJECT_NAME=0
 
     ```
 
@@ -35,34 +35,13 @@ Setting
     cp docker-compose.yml.dist docker-compose.yml
     ```
 
-- Go to env/conf/nginx dir and cp nginx.conf.dist to nginx.conf
+- Go to env dir and copy docker-compose.yml.dist to docker-compose.yml
 
     ```
-    cd  env/conf/nginx
-    cp  nginx.conf.dist nginx.conf
+    cd  env/
+    cp  conf.dist conf
     ```
     
-
-- Go to env/conf/nginx dir and cp vhost.conf.dist to vhost.conf
-
-    ```
-    cd  env/conf/nginx
-    cp  vhost.conf.dist vhost.conf
-    ```
-    
-- Go to env/conf/mysql dir and cp my.cnf.dist to my.cnf
-
-    ```
-    cd  env/conf/mysql
-    cp  my.cnf.dist my.cnf
-    ```
-
-- Go to env/conf/php dir and cp php.ini.dist to php.ini
-
-    ```
-    cd  env/conf/php
-    cp  php.ini.dist php.ini
-    ```
 
 
 Usage
