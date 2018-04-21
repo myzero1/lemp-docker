@@ -91,11 +91,6 @@ Usage
       docker-compose restart
       ```
       
-  - Remove containers
-      ```
-      docker-compose restart
-      ```
-      
   - Add containers and images
       ```
       docker-compose up
