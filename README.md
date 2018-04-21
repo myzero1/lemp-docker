@@ -90,6 +90,10 @@ Usage
       ```
       docker-compose restart
       ```
+  - Restart containers
+      ```
+      docker-compose restart
+      ```
       
   - Add containers and images
       ```
