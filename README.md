@@ -115,5 +115,12 @@ Notice
 - Win7上使用dockerTool
   - 在win7上配置hosts，hosts不支持正则
       ```
-      docker-compose stop
+      127.0.0.1 welcome.local
+      127.0.0.1 welcome1.local
+      ```
+      
+  - 在win7上配置hosts，hosts不支持正则
+      ```
+      127.0.0.1 welcome.local
+      127.0.0.1 welcome1.local
       ```
