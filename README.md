@@ -24,7 +24,7 @@ Setting
 
     # -----------project conf-------------------
     # You should set COMPOSE_PROJECT_NAME as 1-255,if you wang to you use this project.
-    COMPOSE_PROJECT_NAME=0
+    COMPOSE_PROJECT_NAME=whsj
 
     ```
 
