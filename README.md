@@ -125,7 +125,7 @@ Notice
       127.0.0.1 welcome1.local
       ```
       
-  - 在docker宿主上配置hosts，hosts不支持正则
+  - 在virtualbox上配置端口映射
       ```
       127.0.0.1 welcome.local
       127.0.0.1 welcome1.local
