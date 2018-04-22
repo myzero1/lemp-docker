@@ -106,3 +106,14 @@ Usage
       ```
       docker-compose rm
       ```
+
+
+
+Notice
+-----
+
+- Win7上使用dockerTool
+  - Stop containers
+      ```
+      docker-compose stop
+      ```
