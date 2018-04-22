@@ -127,7 +127,7 @@ Notice
       
   - 在virtualbox上配置端口映射
       ```
-      127.0.0.1 welcome.local
-      127.0.0.1 welcome1.local
+      80 80
+      3306 3306
       ```
       
