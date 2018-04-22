@@ -113,7 +113,7 @@ Notice
 -----
 
 - Win7上使用dockerTool
-  - Stop containers
+  - 在win7上配置hosts，hosts不支持正则
       ```
       docker-compose stop
       ```
