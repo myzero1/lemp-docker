@@ -119,8 +119,9 @@ Notice
       127.0.0.1 welcome1.local
       ```
       
-  - 在docker宿主机上配置hosts，hosts不支持正则
+  - 在docker上配置hosts，hosts不支持正则
       ```
       127.0.0.1 welcome.local
       127.0.0.1 welcome1.local
       ```
+      
