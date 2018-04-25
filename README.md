@@ -9,6 +9,8 @@ Clone from [myzero1/lemp-docker](https://github.com/myzero1/lemp-docker)
 
   ```
   git clone https://github.com/myzero1/lemp-docker.git
+  cd lemp-docker
+  git checkout feature/multi_por
   ```
 
 Setting
@@ -24,7 +26,7 @@ Setting
 
     # -----------project conf-------------------
     # You should set COMPOSE_PROJECT_NAME as 1-255,if you wang to you use this project.
-    COMPOSE_PROJECT_NAME=whsj
+    COMPOSE_PROJECT_NAME=0 #0-9
 
     ```
 
