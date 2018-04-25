@@ -108,3 +108,19 @@ Usage
       ```
       docker-compose rm
       ```
+Notice
+-----
+
+- Win7上使用dockerTool
+  - 端口定义如5123
+      ```
+      5为前置local
+      1为环境id,可取0-9.
+      2为应用id,nginx为0,,mysql为1,可取0-9.
+      3为实例id,可取0-9.
+      ```
+  - 在virtualbox上配置端口映射
+      ```
+      127.0.0.1 5000 5000
+      127.0.0.1 5010 5010
+      ```
