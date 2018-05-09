@@ -46,6 +46,8 @@ services:
     volumes:
       - /var/lib/mysql
       - ./conf/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./conf/mysql:/root/mysql_conf
+      - ./conf/mysql/bashrc:/root/.bashrc
     ports:
       - "5${COMPOSE_PROJECT_NAME}10:3306"
     environment:
