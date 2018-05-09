@@ -130,6 +130,7 @@ Notice
       	```
   	- 由于window的权限问题，有时候mysql的配置不会生效。可以试试下面的方法 mysql
       	```
+          0、修改docker-compose中db部分的配置，根据里面的注释进行修改。
           1、docker-compose up -d 重新生成容器并启动
           2、 [winpty ]docker exec -it 0_db_1 bash 进入mysql容器 
           3、 exit 突出mysql容器 
