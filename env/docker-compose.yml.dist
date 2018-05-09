@@ -45,9 +45,9 @@ services:
     image: mysql:5.7
     volumes:
       - /var/lib/mysql
-      - ./conf/mysql/my.cnf:/etc/mysql/my.cnf
-      - ./conf/mysql:/root/mysql_conf
-      - ./conf/mysql/bashrc:/root/.bashrc
+      # - ./conf/mysql/my.cnf:/etc/mysql/my.cnf # for linux
+      - ./conf/mysql:/root/mysql_conf # for dockerTool
+      - ./conf/mysql/bashrc:/root/.bashrc # for dockerTool
     ports:
       - "5${COMPOSE_PROJECT_NAME}10:3306"
     environment:
