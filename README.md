@@ -114,6 +114,12 @@ Usage
       docker-compose pull
       ```
 
+  - Update images and start containers
+      ```
+      docker-compose stop
+      docker-compose up -d --build
+      ```
+
 
 Notice
 -----
