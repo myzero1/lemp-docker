@@ -109,6 +109,11 @@ Usage
       docker-compose rm
       ```
 
+  - Pull/Update images
+      ```
+      docker-compose pull
+      ```
+
 
 Notice
 -----
