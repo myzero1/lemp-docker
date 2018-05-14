@@ -1,19 +1,27 @@
 version: '2'
 services:
   nginx:
-    image: nginx:1.12-alpine
+    image: nginx:stable
     expose:
       - 80
       - 81
       - 82
       - 83
       - 84
+
+      - 8051
+      - 8052
+      - 8053
     ports:
       - "5${COMPOSE_PROJECT_NAME}00:80"
       - "8064:81"
       - "8041:82"
       - "5${COMPOSE_PROJECT_NAME}03:83"
       - "5${COMPOSE_PROJECT_NAME}04:84"
+
+      - "8051:8051"
+      - "8052:8052"
+      - "8053:8053"
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./conf/nginx/conf.d:/etc/nginx/conf.d
@@ -71,13 +79,51 @@ services:
       - code
     expose:
       - 9000
-      - 8051 # for go center
-      - 8052 # for go center
-      - 8053 # for go center
-    ports:
-      - "8051:8051" # for go center
-      - "8052:8052" # for go center
-      - "8053:8053" # for go center
+    #   - 8051 # for go center
+    #   - 8052 # for go center
+    #   - 8053 # for go center
+    # ports:
+    #   - "8051:8051" # for go center
+    #   - "8052:8052" # for go center
+    #   - "8053:8053" # for go center
+    links:
+      - db
+    depends_on:
+      - code
+      - db
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+    networks:
+      - project_net
+  app2:
+    image: daocloud.io/woogle/yii2-docker-env-php
+    working_dir: /app
+    volumes:
+      - ./conf/php/bashrc:/root/.bashrc
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+      - ./conf/php/init-scripts.sh:/init-scripts.sh
+      - ./conf/php/:/root/init-scripts/
+    volumes_from:
+      - code
+    links:
+      - db
+    depends_on:
+      - code
+      - db
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+    networks:
+      - project_net
+  app3:
+    image: daocloud.io/woogle/yii2-docker-env-php
+    working_dir: /app
+    volumes:
+      - ./conf/php/bashrc:/root/.bashrc
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+      - ./conf/php/init-scripts.sh:/init-scripts.sh
+      - ./conf/php/:/root/init-scripts/
+    volumes_from:
+      - code
     links:
       - db
     depends_on:
