@@ -7,9 +7,9 @@ db:
   image: mysql:5.7
   volumes:
     - /var/lib/mysql
-    # - ./conf/mysql/my.cnf:/etc/mysql/conf.d/mysql_custom.cnf # for linux
-    - ./conf/mysql:/root/mysql_conf # for dockerTool
-    - ./conf/mysql/bashrc:/root/.bashrc # for dockerTool
+    - ./conf/mysql/my.cnf:/etc/mysql/conf.d/mysql_custom.cnf # for linux
+    # - ./conf/mysql:/root/mysql_conf # for dockerTool
+    # - ./conf/mysql/bashrc:/root/.bashrc # for dockerTool
 
   # entrypoint:
   #   - bash
@@ -127,16 +127,16 @@ app3:
     XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
 nginx:
   image: nginx:stable
-  expose:
-    - 80
-    - 81
-    - 82
-    - 83
-    - 84
+  # expose:
+  #   # - 80
+  #   - 81
+  #   - 82
+  #   - 83
+  #   - 84
 
-    - 8051
-    - 8052
-    - 8053
+  #   - 8051
+  #   - 8052
+  #   - 8053
   ports:
     - "5${COMPOSE_PROJECT_NAME}00:80"
     - "8064:81"
@@ -154,3 +154,5 @@ nginx:
     - code
   links:
     - app
+    - app2
+    - app3
