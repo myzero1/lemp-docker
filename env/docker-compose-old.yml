@@ -1,0 +1,190 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:stable
+    expose:
+      - 80
+      - 81
+      - 82
+      - 83
+      - 84
+
+      - 8051
+      - 8052
+      - 8053
+    ports:
+      - "5${COMPOSE_PROJECT_NAME}00:80"
+      - "8064:81"
+      - "8041:82"
+      - "5${COMPOSE_PROJECT_NAME}03:83"
+      - "5${COMPOSE_PROJECT_NAME}04:84"
+
+      - "8051:8051"
+      - "8052:8052"
+      - "8053:8053"
+    volumes:
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d
+    volumes_from:
+      - code
+    links:
+      - app
+    depends_on:
+      - code
+      - app
+    networks:
+      - project_net
+  app:
+    image: daocloud.io/woogle/yii2-docker-env-php
+    # build: ./conf/php
+    # image: app-php-go:latest
+    working_dir: /app
+    # user: root:root
+    volumes:
+      - ./conf/php/bashrc:/root/.bashrc
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+      - ./conf/php/init-scripts.sh:/init-scripts.sh
+      - ./conf/php/:/root/init-scripts/
+    # entrypoint: 
+    #   - init-scripts.sh
+
+    # entrypoint:
+    #   - bash
+    #   - -c
+    #   - |
+    #     set -e
+
+
+    #     # /etc/init.d/cron start
+
+    #     # cd /app/center
+    #     # chmod 777 server
+    #     # nohup  ./server &
+
+    #     #bash /init-scripts.sh
+    #     bash /root/init-scripts/init-scripts.sh
+    #     # exec php-fpm
+
+
+    #     # echo 'running prestart script'
+    #     # /init-scripts/prestart.sh
+       
+    #     # echo 'running init.php'
+    #     # php -f /init-script/some/init.php
+        
+    #     # echo 'initialization done, starting apache'
+    #     # exec apache2-foreground
+
+    volumes_from:
+      - code
+    expose:
+      - 9000
+    #   - 8051 # for go center
+    #   - 8052 # for go center
+    #   - 8053 # for go center
+    # ports:
+    #   - "8051:8051" # for go center
+    #   - "8052:8052" # for go center
+    #   - "8053:8053" # for go center
+    links:
+      - db
+    depends_on:
+      - code
+      - db
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+    networks:
+      - project_net
+  app2:
+    image: daocloud.io/woogle/yii2-docker-env-php
+    working_dir: /app
+    volumes:
+      - ./conf/php/bashrc:/root/.bashrc
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+      - ./conf/php/init-scripts.sh:/init-scripts.sh
+      - ./conf/php/:/root/init-scripts/
+    volumes_from:
+      - code
+    links:
+      - db
+      - app
+    depends_on:
+      - code
+      - db
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+    networks:
+      - project_net
+  app3:
+    image: daocloud.io/woogle/yii2-docker-env-php
+    working_dir: /app
+    volumes:
+      - ./conf/php/bashrc:/root/.bashrc
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+      - ./conf/php/init-scripts.sh:/init-scripts.sh
+      - ./conf/php/:/root/init-scripts/
+    volumes_from:
+      - code
+    links:
+      - db
+      - app
+    depends_on:
+      - code
+      - db
+    environment:
+      XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
+    networks:
+      - project_net
+  code:
+    image: busybox:latest
+    volumes:
+      - ../app:/app
+    entrypoint: tail -f /dev/null
+    networks: 
+      - project_net
+  db:
+    image: mysql:5.7
+    volumes:
+      - /var/lib/mysql
+      # - ./conf/mysql/my.cnf:/etc/mysql/conf.d/mysql_custom.cnf # for linux
+      - ./conf/mysql:/root/mysql_conf # for dockerTool
+      - ./conf/mysql/bashrc:/root/.bashrc # for dockerTool
+
+    # entrypoint:
+    #   - bash
+    #   - -c
+    #   - |
+    #     set -e
+
+    #     # bash /init-scripts.sh
+    #     # cd /app/center
+    #     # chmod 777 server
+    #     # nohup  ./server &
+
+    #     # cp /root/mysql_conf/my.cnf /etc/mysql/conf.d/my_custom1.cnf
+    #     # chmod 755 /etc/mysql/conf.d/my_custom1.cnf
+
+        
+    #     # bash docker-entrypoint.sh
+
+    #     # exec mysqld
+    #     # bash docker-entrypoint.sh
+    #     exec mysqld
+
+    # command: ['mysqld']
+
+    ports:
+      - "5${COMPOSE_PROJECT_NAME}10:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: whsj
+      MYSQL_USER: appus
+      MYSQL_PASSWORD: apppw
+    networks:
+      - project_net
+networks:
+  project_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 135.135.${COMPOSE_PROJECT_NAME}.0/24
