@@ -84,9 +84,11 @@ services:
       - 9000
     links:
       - db
+      - redis
     depends_on:
       - code
       - db
+      - redis
     environment:
       XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
     networks:
@@ -136,9 +138,11 @@ services:
       - 9000
     links:
       - db
+      - redis
     depends_on:
       - code
       - db
+      - redis
     environment:
       XDEBUG_CONFIG: "idekey=PHPSTORM remote_enable=On remote_connect_back=On"
     networks:
@@ -164,6 +168,23 @@ services:
       MYSQL_DATABASE: whsj
       MYSQL_USER: appus
       MYSQL_PASSWORD: apppw
+    networks:
+      - project_net
+  redis:
+    build: ./conf/redis/
+    volumes:
+      - /data
+    networks:
+      - project_net
+  mongo:
+    image: mongo
+    volumes:
+      - ./conf/mongo/mongod.conf:/etc/mongo/mongod.conf
+    command: --config /etc/mongo/mongod.conf
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
     networks:
       - project_net
 networks:
