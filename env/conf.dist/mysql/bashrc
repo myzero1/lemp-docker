@@ -1,0 +1,1 @@
+cp /root/mysql_conf/my.cnf /etc/mysql/conf.d/my_custom2.cnf
