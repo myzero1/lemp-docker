@@ -5,7 +5,7 @@
 /etc/init.d/cron start
 
 # for golang center
-cd /app/center
+cd /app/center/src/server
 chmod 777 server
 nohup  ./server &
 
