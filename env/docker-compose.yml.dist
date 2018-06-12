@@ -2,7 +2,7 @@ version: '2'
 services:
   distribute_nginx:
     build: ./conf/distribute_nginx/
-    image: nginx:tools
+    image: nginx
     ports:
       - "8080:8080"
 
@@ -41,7 +41,7 @@ services:
       - project_net
   node1_nginx:
     build: ./conf/distribute_nginx/
-    image: nginx:tools
+    image: nginx
     expose:
       - 8080
 
@@ -95,7 +95,7 @@ services:
       - project_net
   node2_nginx:
     build: ./conf/distribute_nginx/
-    image: nginx:tools
+    image: nginx
     expose:
       - 8080
 
