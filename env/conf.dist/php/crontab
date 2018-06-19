@@ -35,4 +35,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 00 00 * * * root /app/whsj/console/sh-whsj-docker/scheme.sh
 00 23 * * * root /app/whsj/console/sh-whsj-docker/day.sh
 
-
+#test crontab
+*/1 * * * * root date >> /app/crontab-test  # test crontab
